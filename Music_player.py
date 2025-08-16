@@ -29,10 +29,6 @@ subMenu = Menu(menubar, tearoff=0)
 playlist = []
 
 
-# playlist - contains the full path + filename
-# playlistbox - contains just the filename
-# Fullpath + filename is required to play the music inside play_music load function
-
 def browse_file():
     global filename_path
     filename_path = filedialog.askopenfilename()
@@ -62,14 +58,11 @@ subMenu = Menu(menubar, tearoff=0)
 menubar.add_cascade(label="Help", menu=subMenu)
 subMenu.add_command(label="About Us", command=about_us)
 
-mixer.init()  # initializing the mixer
+mixer.init()  
 
 root.title("Melody")
 root.iconbitmap(r'images/melody.ico')
 
-# Root Window - StatusBar, LeftFrame, RightFrame
-# LeftFrame - The listbox (playlist)
-# RightFrame - TopFrame,MiddleFrame and the BottomFrame
 
 leftframe = Frame(root)
 leftframe.pack(side=LEFT, padx=30, pady=30)
@@ -127,8 +120,7 @@ def show_details(play_song):
 
 def start_count(t):
     global paused
-    # mixer.music.get_busy(): - Returns FALSE when we press the stop button (music stop playing)
-    # Continue - Ignores all of the statements below it. We check if music is paused or not.
+
     current_time = 0
     while current_time <= t and mixer.music.get_busy():
         if paused:
@@ -188,8 +180,6 @@ def rewind_music():
 def set_vol(val):
     volume = float(val) / 100
     mixer.music.set_volume(volume)
-    # set_volume of mixer takes value only from 0 to 1. Example - 0, 0.1,0.55,0.54.0.99,1
-
 
 muted = FALSE
 
@@ -238,7 +228,7 @@ volumeBtn = ttk.Button(bottomframe, image=volumePhoto, command=mute_music)
 volumeBtn.grid(row=0, column=1)
 
 scale = ttk.Scale(bottomframe, from_=0, to=100, orient=HORIZONTAL, command=set_vol)
-scale.set(70)  # implement the default value of scale when music player starts
+scale.set(70)  
 mixer.music.set_volume(0.7)
 scale.grid(row=0, column=2, pady=15, padx=30)
 
